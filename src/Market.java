@@ -4,7 +4,8 @@ import java.util.LinkedList;
 
 public class Market {
 	
-	public static int price = 1;
+	public static int ratPrice = 1;
+	static RatBucket ratBucket = null;
 	private static LinkedList<Integer> priceHistory = new LinkedList<Integer>();
 	
 	public static String getPriceHistory(){
@@ -27,8 +28,9 @@ public class Market {
 		return result;
 	}
 	
-	public static void addPrice(int price){
-		priceHistory.add(price);
+	public static void updatePrice(int newPrice){
+		priceHistory.add(ratPrice);
+		ratPrice = newPrice;
 		if(priceHistory.size() > 5)
 			priceHistory.remove(0);
 	}

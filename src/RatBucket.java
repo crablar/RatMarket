@@ -1,12 +1,14 @@
 
 public class RatBucket {
 	
+	public int price;
 	public int turnsInPlay;
 	public int numRatsInside;
 	
-	public RatBucket(){
+	public RatBucket(int rats, int price){
 		turnsInPlay = 0;
-		numRatsInside = Main.rand.nextInt(10);
+		numRatsInside = rats;
+		this.price = price;
 	}
 	
 	public void advance(){
