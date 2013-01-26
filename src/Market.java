@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Market {
 	
 	public static int ratPrice = 1;
-	static RatBucket ratBucket = null;
+	public static RatBucket ratBucket = null;
 	private static LinkedList<Integer> priceHistory = new LinkedList<Integer>();
 	
 	public static String getPriceHistory(){

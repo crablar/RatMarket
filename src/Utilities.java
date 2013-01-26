@@ -1,3 +1,5 @@
+
+
 import java.util.Random;
 
 public class Utilities {
@@ -16,6 +18,11 @@ public class Utilities {
 		int multiple = rand.nextInt(9);
 		int x = (r * mktPrice * multiple) / 4;
 		return new RatBucket(r, x);
+	}
+
+	public static void characterize(Player player, String string) {
+		player.strategy = StrategyMap.get(string);
+		
 	}
 	
 }

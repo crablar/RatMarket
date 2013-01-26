@@ -1,10 +1,12 @@
-import java.util.Scanner;
+import strategies.Strategy;
 
 public class Player{
 	
 	public int rats;
 	public int dollars;
 	public String name;
+	public PersonalPredicateMap predicates;
+	public Strategy strategy;
 	
 	public Player(String name){
 		rats = 0;
@@ -13,21 +15,15 @@ public class Player{
 	}
 	
 	public boolean buyRatBucket(){
-		if(dollars > ratbucket.price)
+		if(dollars > Market.ratBucket.price)
 			return false;
-		dollars -= ratbucket.price;
-		rats += ratbucket.numRatsInside;
+		dollars -= Market.ratBucket.price;
+		rats += Market.ratBucket.numRatsInside;
 		return true;
 	}
 
 	public void takeTurn() {
-		Scanner scan = new Scanner(System.in);
-		boolean done = false;
-		System.out.println("Bob, would you like to buy the rat bucket, buy rats, sell rats, or end your turn?  Example: \"buy 5\" or \"Sell 2\" or \"done\" or \"buy rat bucket\"");
-		String command = scan.nextLine();
-		command = command.toLowerCase();
-		if(command.equals("buy rat bucket"))
-			
+		Decision decision = strategy.generatePlay(rats, dollars, predicates);
 	}
 	
 }

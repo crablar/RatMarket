@@ -1,15 +1,22 @@
 import java.util.Random;
 
+import strategies.Strategy;
+
 public class Main {
-	
+
 	public static void main(String[] args) {
 
+		final int NUM_PLAYERS = 2;
+				
+		Player alice = new Player("Alice");
+		Player bob = new Player("Bob");
+		
+		Utilities.characterize(alice, args[0]);
+		Utilities.characterize(bob, args[1]);
+		
 		Utilities.printIntro();
 		
 		int turn = 0;
-		
-		Player alice = new Player("Alice");
-		Player bob = new Player("Bob");
 		
 		Player currentPlayer;
 		boolean A_TURN = Utilities.rand.nextBoolean();
@@ -39,7 +46,7 @@ public class Main {
 			System.out.println(Market.ratBucket.getInfo());
 			System.out.println("----------------------------\n");
 			
-			currentPlayer.takeTurn();
+			currentPlayer.takeTurn(Strategy strategy);
 			
 
 
@@ -47,5 +54,4 @@ public class Main {
 			currentPlayer = A_TURN ? alice : bob;
 		}
 	}
-	
 }
