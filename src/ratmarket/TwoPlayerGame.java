@@ -17,6 +17,8 @@ import strategies.StrategyMap;
 
 public class TwoPlayerGame {
 
+	public final int STARTING_PRICE = 1 + Utilities.rand.nextInt(9);
+	
 	public static void main(String[] args) {
 
 		StrategyMap.initialize();

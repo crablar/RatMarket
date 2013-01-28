@@ -6,7 +6,10 @@ import ratmarket.Player;
 
 
 /**
- * A map for each player, which tracks certain predicates about tha player.
+ * Every Player has a PersonalPredicateMap, which tracks certain predicates about that player.
+ * 
+ * For example:
+ * 		@boolean fifty_percent_invested = Alice.map.get(15% invested);
  * 
  * @author jeffreymeyerson
  *
@@ -14,7 +17,7 @@ import ratmarket.Player;
 
 public class PersonalPredicateMap{
 	
-	HashMap<String, Boolean> map;
+	public HashMap<String, Boolean> map;
 	
 	public PersonalPredicateMap(){
 		map = new HashMap<String, Boolean>();
@@ -29,7 +32,7 @@ public class PersonalPredicateMap{
 	}
 	
 	/**
-	 * Adds the percentage investment booleans the player map.  The map can now be queried as follows:
+	 * Adds the percentage investment booleans to the player map.  The map can now be queried as follows:
 	 * 		
 	 * 	@boolean fifty_percent_invested = map.get(15% invested);
 	 * 

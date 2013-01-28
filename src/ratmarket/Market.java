@@ -1,12 +1,14 @@
 package ratmarket;
-import java.util.ArrayList;
 import java.util.LinkedList;
+
+import price_functions.PriceFunction;
+import price_functions.SinPriceFunction;
 
 
 public class Market {
 	
 	public static PriceFunction priceFuntion = new SinPriceFunction();
-	public static int ratPrice = ;
+	public static int ratPrice = priceFunction.calculatePrice();
 	
 	public int lastBuyOrder = 0;
 	public int lastSellOrder = 0;
@@ -31,9 +33,6 @@ public class Market {
 		}
 		return result;
 	}
-	
-	public static int
-
 	
 	public static void updatePrice(int newPrice){
 		priceHistory.add(ratPrice);
