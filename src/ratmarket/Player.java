@@ -1,6 +1,7 @@
 package ratmarket;
 
 import predicate_maps.PersonalPredicateMap;
+import strategies.Strategy;
 
 
 public class Player{

@@ -1,6 +1,8 @@
 package ratmarket;
 import java.util.Random;
 
+import strategies.StrategyMap;
+
 
 /**
  * Runs a 2-player game of RatMarket. 

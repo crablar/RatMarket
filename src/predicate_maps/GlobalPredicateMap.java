@@ -1,6 +1,12 @@
 package predicate_maps;
 import java.util.HashMap;
 
+/**
+ * The GlobalPredicateMap keeps track of predicates that describe the global game state.
+ * 
+ * @author jeffreymeyerson
+ *
+ */
 
 
 public class GlobalPredicateMap{

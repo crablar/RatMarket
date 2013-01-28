@@ -5,7 +5,12 @@ import java.util.LinkedList;
 
 public class Market {
 	
-	public static int ratPrice = 1;
+	public static PriceFunction priceFuntion = new SinPriceFunction();
+	public static int ratPrice = ;
+	
+	public int lastBuyOrder = 0;
+	public int lastSellOrder = 0;
+	
 	public static RatBucket ratBucket = null;
 	private static LinkedList<Integer> priceHistory = new LinkedList<Integer>();
 	
@@ -26,6 +31,9 @@ public class Market {
 		}
 		return result;
 	}
+	
+	public static int
+
 	
 	public static void updatePrice(int newPrice){
 		priceHistory.add(ratPrice);
