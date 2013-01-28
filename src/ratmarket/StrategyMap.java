@@ -12,8 +12,8 @@ public class StrategyMap {
 		map.put("nit", new Nit());
 	}
 
-	public static Strategy get(String string) {
-		return map.get(string);
+	public static Strategy get(String strategyName) {
+		return map.get(strategyName);
 	}
 	
 }

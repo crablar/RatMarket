@@ -1,5 +1,7 @@
 package ratmarket;
 
+import predicate_maps.PersonalPredicateMap;
+
 
 public class Player{
 	
@@ -24,7 +26,7 @@ public class Player{
 	}
 
 	public void takeTurn() {
-		Decision decision = strategy.generatePlay(rats, dollars, predicates);
+		Decision decision = strategy.generateDecision(rats, dollars, predicates);
 	}
 	
 }

@@ -18,7 +18,7 @@ public class RatBucket {
 	}
 	
 	public String getInfo(){
-		return "The rat bucket has been in play for " + turnsInPlay + " turns.";
+		return "The rat bucket has been in play for " + turnsInPlay + " turns.\nCurrent rat bucket price: $" + price;
 	}
 
 	

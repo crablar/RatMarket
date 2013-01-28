@@ -16,15 +16,13 @@ public class Market {
 		String result = "Price History: " + temp1;
 		for(int i = 1; i < priceHistory.size(); i++){
 			int temp2 = priceHistory.get(i);
-			char marketDirection = ' ';
+			char marketDirection = 'v';
 			if(temp2 > temp1)
 				marketDirection = '^';
-			if(temp2 < temp1)
-				marketDirection = 'v';
-			if(temp2 == temp1)
+			else if(temp2 == temp1)
 				marketDirection = '=';
 			temp1 = temp2;
-			result += marketDirection + " " + temp2 + " ";
+			result += " " + marketDirection + " " + temp2;
 		}
 		return result;
 	}

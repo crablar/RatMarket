@@ -1,5 +1,6 @@
 package strategies;
 
+import predicate_maps.PersonalPredicateMap;
 import ratmarket.*;
 
 /**
@@ -15,14 +16,26 @@ import ratmarket.*;
 
 public class Nit extends Strategy{
 
-	final static String[] observedPredicates = {"30% invested", "35% invested", "37% invested", "70% invested", "50% invested"};
+	public String[] observedPredicates = {"30% invested", "35% invested", "37% invested", "70% invested", "50% invested"};
 	
 	public Decision generateDecision(int rats, int dollars,
 			PersonalPredicateMap predicates) {
 		
-		boolean thirty_percent_invested = predicates.get("thirty percent invested");
+			int valueAtFullLiquidity = dollars + rats * Market.ratPrice;
+			double pcnt_cash = 1.0 * dollars / valueAtFullLiquidity;
+			double pcnt_rat = 1 - pcnt_cash;
 		
+			boolean thirty_percent_invested = predicates.get(observedPredicates[0]);
+			boolean thirtyfive_percent_invested = predicates.get(observedPredicates[1]);
+			boolean thirtyseven_percent_invested = predicates.get(observedPredicates[2]);
+			boolean fifty_percent_invested = predicates.get(observedPredicates[3]);
+			boolean seventy_percent_invested = predicates.get(observedPredicates[4]);
+			
 		return null;
+	}
+	
+	public static void seedPredicateMap(){
+		
 	}
 	
 	
