@@ -1,8 +1,8 @@
 package strategies;
 
-import predicate_maps.GlobalPredicateMap;
-import predicate_maps.PersonalPredicateMap;
 import ratmarket.Decision;
+import ratmarket.Player;
+import ev_metrics.ExpectedValueMetric;
 
 /**
  * The Strategy class. A strategy takes predicates from the PersonalPredicateMap
@@ -16,8 +16,9 @@ import ratmarket.Decision;
 
 public abstract class Strategy {
 
+	public ExpectedValueMetric expectedValueMetric;
+
 	public abstract Decision generateDecision(int rats, int dollars,
-			PersonalPredicateMap personalPredicateMap,
-			GlobalPredicateMap globalPredicateMap);
+			Player player);
 
 }

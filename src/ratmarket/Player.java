@@ -9,7 +9,7 @@ public class Player{
 	public int rats;
 	public int dollars;
 	public String name;
-	public PersonalPredicateMap predicates;
+	public PersonalPredicateMap personalPredicateMap;
 	public Strategy strategy;
 	
 	public Player(String name){

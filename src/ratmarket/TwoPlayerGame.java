@@ -1,6 +1,4 @@
 package ratmarket;
-import java.util.Random;
-
 import strategies.StrategyMap;
 
 
@@ -17,7 +15,8 @@ import strategies.StrategyMap;
 
 public class TwoPlayerGame {
 
-	public final int STARTING_PRICE = 1 + Utilities.rand.nextInt(9);
+	public final static int GOAL = 1000;
+	public final static int STARTING_PRICE = 1 + Utilities.rand.nextInt(9);
 	
 	public static void main(String[] args) {
 
@@ -43,7 +42,7 @@ public class TwoPlayerGame {
 		
 		
 		// Main game loop
-		while (alice.dollars < 1000 && bob.dollars < 1000) {
+		while (alice.dollars < GOAL && bob.dollars < GOAL) {
 			turn++;
 			if(Market.ratBucket != null){
 				Market.ratBucket.advance();
@@ -66,6 +65,9 @@ public class TwoPlayerGame {
 			A_TURN = !A_TURN;
 			currentPlayer = A_TURN ? alice : bob;
 		}
+		
+		System.out.println("The game is over.  " + currentPlayer + "  is the winner.");
+		
 	}
 	
 	static void printIntro() {

@@ -4,6 +4,7 @@ import predicate_maps.GlobalPredicateMap;
 import predicate_maps.PersonalPredicateMap;
 import ratmarket.Decision;
 import ratmarket.Market;
+import ratmarket.Player;
 
 /**
  * The nit fills up 20% of his portfolio with rats whenever the market has
@@ -21,8 +22,9 @@ import ratmarket.Market;
 public class Nit extends Strategy {
 
 	public Decision generateDecision(int rats, int dollars,
-			PersonalPredicateMap personalPredicateMap) {
+			Player player) {
 		
+		PersonalPredicateMap personalPredicateMap = player.personalPredicateMap;
 		int totalWorth = Market.ratPrice * rats + dollars;
 		double pcntRats = 1.0 * rats * Market.ratPrice / totalWorth;
 		
@@ -38,11 +40,23 @@ public class Nit extends Strategy {
 		boolean three_consec_uptrends = GlobalPredicateMap.get("three_consecutive_uptrends");
 		boolean three_consec_downtrends = GlobalPredicateMap.get("three_consecutive_downtrends");
  
+		//  Expected values for each decision
+		double buyEV = .33;
+		double sellEV = .33;
+		double ratBucketEV = .33;
+		
 		if(three_consec_uptrends){
+			
+			//  This turn will be a buy or a do-nothing.
+			int buy_order = 0;		
+			
 			if(!twenty_percent_invested){
 				// Calculate how many rats are needed to fill 20% of this player's portfolio
-				int buy_order = 0;
-				while(buy_order * Market.ratPrice / (dollars + 1))
+				double pcnt_invested = 1.0 * buy_order * Market.ratPrice / (dollars + 1);
+				while(pcnt_invested > .2 && pcnt_invested < .3)
+					buy_order++;
+			}
+			
 			}
 				
 		}

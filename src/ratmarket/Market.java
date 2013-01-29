@@ -1,19 +1,22 @@
 package ratmarket;
 import java.util.LinkedList;
 
+import price_functions.DemandDrivenPriceFunction;
 import price_functions.PriceFunction;
-import price_functions.SinPriceFunction;
+;
 
 
 public class Market {
 	
-	public static PriceFunction priceFuntion = new SinPriceFunction();
+	public static PriceFunction priceFunction = new DemandDrivenPriceFunction();
 	public static int ratPrice = priceFunction.calculatePrice();
 	
 	public int lastBuyOrder = 0;
 	public int lastSellOrder = 0;
 	
 	public static RatBucket ratBucket = null;
+	
+	//  The price history that gets printed every turn
 	private static LinkedList<Integer> priceHistory = new LinkedList<Integer>();
 	
 	public static String getPriceHistory(){
