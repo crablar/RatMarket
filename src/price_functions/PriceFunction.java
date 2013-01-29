@@ -10,9 +10,7 @@ import java.util.ArrayList;
  */
 
 public abstract class PriceFunction {
-
-	public ArrayList<Integer> priceHistory;
-
+	
 	public abstract int calculatePrice();
 
 }

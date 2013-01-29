@@ -56,7 +56,7 @@ public class TwoPlayerGame {
 			System.out.println("Bob has " + bob.dollars + " dollars and " + bob.rats + " rats.");
 			System.out.println("ииииииииииииииииииииииииииии\n");
 			System.out.println("The market price of a rat is $" + Market.ratPrice + ".");
-			System.out.println(Market.getPriceHistory());
+			System.out.println(Market.simplePriceHistory());
 			System.out.println(Market.ratBucket.getInfo());
 			System.out.println("----------------------------\n");
 			

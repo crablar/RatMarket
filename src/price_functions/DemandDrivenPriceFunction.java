@@ -12,10 +12,6 @@ import ratmarket.TwoPlayerGame;
  */
 
 public class DemandDrivenPriceFunction extends PriceFunction{
-
-	public DemandDrivenPriceFunction(){
-		priceHistory = new ArrayList<Integer>();
-	}
 	
 	public int calculatePrice() {
 		if(priceHistory.get(1) == null)

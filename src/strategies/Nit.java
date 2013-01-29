@@ -21,8 +21,9 @@ import ratmarket.Player;
 
 public class Nit extends Strategy {
 
-	public Decision generateDecision(int rats, int dollars,
-			Player player) {
+	public static ExpectedValueMetric shortTermOutlook = ShortTermOutlook();
+	
+	public Decision generateDecision(Player player) {
 		
 		PersonalPredicateMap personalPredicateMap = player.personalPredicateMap;
 		int totalWorth = Market.ratPrice * rats + dollars;
@@ -43,7 +44,7 @@ public class Nit extends Strategy {
 		//  Expected values for each decision
 		double buyEV = .33;
 		double sellEV = .33;
-		double ratBucketEV = .33;
+		double ratBucketEV = expectedValue;
 		
 		if(three_consec_uptrends){
 			

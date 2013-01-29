@@ -16,9 +16,17 @@ import ev_metrics.ExpectedValueMetric;
 
 public abstract class Strategy {
 
+	/**
+	 * The Strategy uses a single ExpectedValueMetric.
+	 */
 	public ExpectedValueMetric expectedValueMetric;
 
-	public abstract Decision generateDecision(int rats, int dollars,
-			Player player);
+	/**
+	 * Generates a decision for a given player.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public abstract Decision generateDecision(Player player);
 
 }
