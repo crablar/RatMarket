@@ -46,7 +46,7 @@ public class Main {
 			System.out.println(Market.ratBucket.getInfo());
 			System.out.println("----------------------------\n");
 			
-			currentPlayer.takeTurn();
+			currentPlayer.takeTurn(Strategy strategy);
 			
 
 
