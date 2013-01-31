@@ -49,5 +49,13 @@ public class Decision {
 		this.decisionType = "buy";
 		this.ratsToBuy = rats;
 	}
+	
+	public boolean isBuy(){
+		return ratsToBuy > 0;
+	}
 
+	public boolean isSell(){
+		return ratsToSell < 0;
+	}
+	
 }

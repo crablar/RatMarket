@@ -9,6 +9,8 @@ import ratmarket.Player;
  * 
  * @author jeffreymeyerson
  *
+ *	TODO: this class is just scalability right now; doesn't do anything relevant.
+ *
  */
 
 public class ShortTermOutlook implements ExpectedValueMetric{

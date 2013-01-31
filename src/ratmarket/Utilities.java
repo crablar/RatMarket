@@ -1,6 +1,7 @@
 package ratmarket;
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Utilities {
@@ -15,5 +16,27 @@ public class Utilities {
 		int x = (r * mktPrice * multiple) / 4;
 		return new RatBucket(r, x);
 	}
+
+		public static ArrayList<Integer> trimPriceHistory(int maxSize) {
+		ArrayList<Integer> priceHistory;
+		if(Market.priceHistory.size() < 51)
+			priceHistory = Market.priceHistory;
+		else
+			priceHistory = (ArrayList<Integer>) Market.priceHistory.subList(Market.priceHistory.size() - maxSize, Market.priceHistory.size());
+		return priceHistory;
+	}
+
+		public static int getAverage(ArrayList<Integer> priceHistory) {
+			if(priceHistory == null)
+				return 0;
+			// Take average of last 50 points, or up to 50 depending on how many turns have passed
+			int total = 0;
+			int count = 0;
+			for(Integer i : priceHistory){
+				total += i;
+				count++;
+			}
+			return total / count;
+		}
 	
 }

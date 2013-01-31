@@ -1,7 +1,7 @@
 package strategies;
 
-import predicate_maps.GlobalPredicateMap;
-import predicate_maps.PersonalPredicateMap;
+import predicate_calculus.predicates.GlobalPredicateMap;
+import predicate_calculus.predicates.PersonalPredicateMap;
 import ratmarket.Decision;
 import ratmarket.Market;
 import ratmarket.Player;

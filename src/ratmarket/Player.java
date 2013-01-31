@@ -1,6 +1,6 @@
 package ratmarket;
 
-import predicate_maps.PersonalPredicateMap;
+import predicates.PersonalPredicateMap;
 import strategies.Strategy;
 
 
@@ -27,7 +27,12 @@ public class Player{
 	}
 
 	public void takeTurn() {
-		Decision decision = strategy.generateDecision(rats, dollars, predicates);
+		Decision decision = strategy.generateDecision(this);
+		DecisionProcessor.processDecision(decision, this);
+		if(!decision.isBuy())
+			Market.turnsSinceLastBuy++;
+		if(!decision.isSell())
+			Market.turnsSinceLastSell++;
 	}
 	
 }
