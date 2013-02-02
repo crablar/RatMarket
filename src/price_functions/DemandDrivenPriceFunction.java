@@ -3,11 +3,10 @@ package price_functions;
 import java.util.ArrayList;
 
 import ratmarket.Market;
-import ratmarket.TwoPlayerGame;
 import ratmarket.Utilities;
 
 /**
- * A PriceFunction that moves according to the changes in the
+ * A PriceFunction that moves according to the changes in the Market and
  * GlobalPredicateMap.
  * 
  * @author jeffreymeyerson
@@ -16,9 +15,14 @@ import ratmarket.Utilities;
 
 public class DemandDrivenPriceFunction extends PriceFunction {
 
-	public int calculatePrice() {
-		if (Market.priceHistory.get(0) == null)
-			return TwoPlayerGame.STARTING_PRICE;
+	/**
+	 * Calculates and returns an updated price.
+	 * 
+	 * @return
+	 */
+	public int updatePrice() {
+		if (Market.priceHistory.isEmpty())
+			return Market.STARTING_PRICE;
 
 		ArrayList<Integer> priceHistory = Utilities.trimPriceHistory(50);
 		int movingAverage = Utilities.getAverage(priceHistory);
@@ -26,17 +30,21 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 		int lastSellTimestamp = Market.turnsSinceLastSell;
 		int priceDirectionalMagnitude = lastSellTimestamp - lastBuyTimestamp;
 
-		int result = 0;
-
 		if (priceDirectionalMagnitude < 0) {
 			if (Market.ratPrice > movingAverage)
-				Market.ratPrice += priceDirectionalMagnitude;
+				// Note that priceDirectionalMagnitude should be negative here
+				return Market.ratPrice += priceDirectionalMagnitude;
 			else
-				Market.ratPrice--;
-
+				return Market.ratPrice--;
 		}
-
-		return result;
+		if (priceDirectionalMagnitude > 0) {
+			if (Market.ratPrice < movingAverage)
+				return Market.ratPrice += priceDirectionalMagnitude;
+			else
+				return Market.ratPrice++;
+		}
+		// If the market is sideways, the price gets decremented
+		return Market.ratPrice--;
 	}
 
 }

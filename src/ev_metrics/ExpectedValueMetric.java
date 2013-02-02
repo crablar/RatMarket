@@ -4,7 +4,7 @@ import ratmarket.Decision;
 import ratmarket.Player;
 
 /**
- * ExpectedValueMetrics are simple expressions of how "good" a play is to that player.
+ * ExpectedValueMetrics are expressions of how "good" a Decision is.
  * 
  * A single ExpectedValueMetric is found in every strategy, but
  * ExpectedValueMetric can be subclassed to create hybrids between metric

@@ -47,7 +47,6 @@ public class PersonalPredicateMap{
 		double pcntRats = 1 - pcntDollars;
 		
 		//  How could I automate this?
-		
 		boolean fifteen_percent_invested = pcntRats >= .15 ? true : false;
 		boolean twenty_percent_invested = pcntRats >= .2 ? true : false;
 		boolean twentyfive_percent_invested = pcntRats >= .25 ? true : false;

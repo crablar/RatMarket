@@ -5,7 +5,7 @@ import ratmarket.Market;
 import ratmarket.Player;
 
 /**
- * A simple short term outlook that allows comparison of a rat bucket purchase.
+ * A short term outlook that allows comparison of a rat bucket purchase to a buy or sell order.
  * 
  * @author jeffreymeyerson
  *
@@ -24,7 +24,7 @@ public class ShortTermOutlook implements ExpectedValueMetric{
 		if(decision.decisionType.equals("buy rat bucket"))
 			return getRatBucketEV(player, decision);
 		
-		//error
+		// error
 		else return 0;
 	}
 

@@ -16,6 +16,8 @@ public class Player{
 		rats = 0;
 		dollars = 200;
 		this.name = name;
+		personalPredicateMap = new PersonalPredicateMap();
+		personalPredicateMap.updateAllPredicates(this);
 	}
 	
 	public boolean buyRatBucket(){
@@ -33,6 +35,7 @@ public class Player{
 			Market.turnsSinceLastBuy++;
 		if(!decision.isSell())
 			Market.turnsSinceLastSell++;
+		personalPredicateMap.updateAllPredicates(this);
 	}
 	
 }

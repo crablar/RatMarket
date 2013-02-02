@@ -11,6 +11,6 @@ import java.util.ArrayList;
 
 public abstract class PriceFunction {
 	
-	public abstract int calculatePrice();
+	public abstract int updatePrice();
 
 }

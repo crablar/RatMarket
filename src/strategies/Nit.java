@@ -1,10 +1,12 @@
 package strategies;
 
-import predicate_calculus.predicates.GlobalPredicateMap;
-import predicate_calculus.predicates.PersonalPredicateMap;
+import predicates.GlobalPredicateMap;
+import predicates.PersonalPredicateMap;
 import ratmarket.Decision;
 import ratmarket.Market;
 import ratmarket.Player;
+import ev_metrics.ExpectedValueMetric;
+import ev_metrics.ShortTermOutlook;
 
 /**
  * The nit fills up 20% of his portfolio with rats whenever the market has
@@ -21,14 +23,19 @@ import ratmarket.Player;
 
 public class Nit extends Strategy {
 
-	public static ExpectedValueMetric shortTermOutlook = ShortTermOutlook();
-	
+	public static ExpectedValueMetric expectedValueMetric = new ShortTermOutlook();
+
+	/**
+	 * TODO: Architecture needs a lot of work here.
+	 */
 	public Decision generateDecision(Player player) {
 		
-		PersonalPredicateMap personalPredicateMap = player.personalPredicateMap;
-		int totalWorth = Market.ratPrice * rats + dollars;
-		double pcntRats = 1.0 * rats * Market.ratPrice / totalWorth;
+		//TODO
+		Decision decision = new Decision("undecided");
 		
+		PersonalPredicateMap personalPredicateMap = player.personalPredicateMap;
+		int totalWorth = Market.ratPrice * player.rats + player.dollars;
+		double pcntRats = 1.0 * player.rats * Market.ratPrice / totalWorth;
 		//  Personal Predicates
 		boolean twenty_percent_invested = personalPredicateMap.get("20% invested");
 		boolean thirty_percent_invested = personalPredicateMap.get("30% invested");
@@ -36,31 +43,37 @@ public class Nit extends Strategy {
 		boolean forty_percent_invested = personalPredicateMap.get("40% invested");
 		boolean fifty_percent_invested = personalPredicateMap.get("50% invested");
 		boolean seventy_percent_invested = personalPredicateMap.get("70% invested");
-		
 		//  Global Predicates
-		boolean three_consec_uptrends = GlobalPredicateMap.get("three_consecutive_uptrends");
-		boolean three_consec_downtrends = GlobalPredicateMap.get("three_consecutive_downtrends");
- 
-		//  Expected values for each decision
-		double buyEV = .33;
-		double sellEV = .33;
-		double ratBucketEV = expectedValue;
-		
-		if(three_consec_uptrends){
-			
-			//  This turn will be a buy or a do-nothing.
-			int buy_order = 0;		
-			
-			if(!twenty_percent_invested){
-				// Calculate how many rats are needed to fill 20% of this player's portfolio
-				double pcnt_invested = 1.0 * buy_order * Market.ratPrice / (dollars + 1);
-				while(pcnt_invested > .2 && pcnt_invested < .3)
-					buy_order++;
-			}
-			
-			}
-				
-		}
-	}
+		int numConsecUptrends = (Integer)GlobalPredicateMap.get("number of consecutive uptrends");
+		int numConsecDowntrends = (Integer)GlobalPredicateMap.get("number of consecutive downtrends");
 
+				
+			if(numConsecUptrends > 2 && !twenty_percent_invested){		
+					// Calculate how many rats are needed to fill 20% of this player's portfolio
+					double pcntToInvest = .2 - pcntRats;
+					int dollarsToAllocate = (int)(pcntToInvest * totalWorth);
+					int ratsToBuy = dollarsToAllocate / Market.ratPrice;
+					decision = new Decision("buy", ratsToBuy);
+			}			
+			if(numConsecUptrends > 3 && !thirty_percent_invested){		
+				// Calculate how many rats are needed to fill 20% of this player's portfolio
+				double pcntToInvest = .3 - pcntRats;
+				int dollarsToAllocate = (int)(pcntToInvest * totalWorth);
+				int ratsToBuy = dollarsToAllocate / Market.ratPrice;
+				decision = new Decision("buy", ratsToBuy);
+			}	
+			if(numConsecUptrends > 4 && !thirtyfive_percent_invested){		
+				// Calculate how many rats are needed to fill 20% of this player's portfolio
+				double pcntToInvest = .35 - pcntRats;
+				int dollarsToAllocate = (int)(pcntToInvest * totalWorth);
+				int ratsToBuy = dollarsToAllocate / Market.ratPrice;
+				decision = new Decision("buy", ratsToBuy);
+			}
+		
+		if(numConsecDowntrends > 2){
+			int ratsToSell = totalWorth / Market.ratPrice / 2;
+			decision = new Decision("sell",ratsToSell);
+		}
+		return decision;
+	}
 }
