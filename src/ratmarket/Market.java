@@ -9,6 +9,7 @@ import price_functions.PriceFunction;
 public class Market {
 	
 	public final static int STARTING_PRICE = 1 + Utilities.rand.nextInt(9);
+	public static final boolean DEBUG = true;
 	
 	public static PriceFunction priceFunction = new DemandDrivenPriceFunction();
 	public static int ratPrice = STARTING_PRICE;
@@ -51,7 +52,7 @@ public class Market {
 	}
 	
 	public static boolean hasUpwardMomentum(){
-		return lastBuyOrder > lastSellOrder;
+		return priceFunction.getDirectionalMagnitude() > 0;
 	}
 
 	

@@ -1,35 +1,42 @@
 package ev_metrics;
 
+import java.util.ArrayList;
+
 import ratmarket.Decision;
 import ratmarket.Market;
 import ratmarket.Player;
 
 /**
- * A short term outlook that allows comparison of a rat bucket purchase to a buy or sell order.
+ * A short term outlook that allows comparison of a rat bucket purchase to a buy
+ * or sell order.
  * 
  * @author jeffreymeyerson
- *
- *	TODO: this class is just scalability right now; doesn't do anything relevant.
- *
+ * 
+ *         TODO: this class is just scalability right now; doesn't do anything
+ *         relevant.
+ * 
  */
 
-public class ShortTermOutlook implements ExpectedValueMetric{
+public class ShortTermOutlook extends ExpectedValueMetric {
+
 
 	@Override
 	public double getExpectedValue(Player player, Decision decision) {
-		if(decision.decisionType.equals("buy"))
+		if (decision.decisionType.equals("buy"))
 			return getBuyEV(player, decision);
-		if(decision.decisionType.equals("sell"))
+		if (decision.decisionType.equals("sell"))
 			return getSellEV(player, decision);
-		if(decision.decisionType.equals("buy rat bucket"))
+		if (decision.decisionType.equals("buy rat bucket"))
 			return getRatBucketEV(player, decision);
-		
+
 		// error
-		else return 0;
+		else
+			return 0;
 	}
 
+	
 	private double getRatBucketEV(Player player, Decision decision) {
-		if(Market.ratBucket.turnsInPlay > 3)
+		if (Market.ratBucket.turnsInPlay > 3)
 			return .5;
 		return .33;
 	}
@@ -41,7 +48,5 @@ public class ShortTermOutlook implements ExpectedValueMetric{
 	private double getBuyEV(Player player, Decision decision) {
 		return .33;
 	}
-	
-	
 
 }

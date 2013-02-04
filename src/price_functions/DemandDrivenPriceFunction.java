@@ -15,6 +15,8 @@ import ratmarket.Utilities;
 
 public class DemandDrivenPriceFunction extends PriceFunction {
 
+	private int priceDirectionalMagnitude;
+	
 	/**
 	 * Calculates and returns an updated price.
 	 * 
@@ -23,28 +25,36 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 	public int updatePrice() {
 		if (Market.priceHistory.isEmpty())
 			return Market.STARTING_PRICE;
-
 		ArrayList<Integer> priceHistory = Utilities.trimPriceHistory(50);
 		int movingAverage = Utilities.getAverage(priceHistory);
 		int lastBuyTimestamp = Market.turnsSinceLastBuy;
 		int lastSellTimestamp = Market.turnsSinceLastSell;
-		int priceDirectionalMagnitude = lastSellTimestamp - lastBuyTimestamp;
-
-		if (priceDirectionalMagnitude < 0) {
+		priceDirectionalMagnitude = lastSellTimestamp - lastBuyTimestamp;
+		
+		priceDirectionalMagnitude = getDirectionalMagnitude();
+		
+		if (priceDirectionalMagnitude < 0 && priceDirectionalMagnitude + Market.ratPrice > 0) {
 			if (Market.ratPrice > movingAverage)
 				// Note that priceDirectionalMagnitude should be negative here
-				return Market.ratPrice += priceDirectionalMagnitude;
+				Market.ratPrice += priceDirectionalMagnitude;
 			else
-				return Market.ratPrice--;
+				Market.ratPrice--;
 		}
 		if (priceDirectionalMagnitude > 0) {
 			if (Market.ratPrice < movingAverage)
-				return Market.ratPrice += priceDirectionalMagnitude;
+				Market.ratPrice += priceDirectionalMagnitude;
 			else
-				return Market.ratPrice++;
+				Market.ratPrice++;
 		}
 		// If the market is sideways, the price gets decremented
-		return Market.ratPrice--;
+		return Market.ratPrice;
+	}
+	
+	public int getDirectionalMagnitude(){
+	//  If price has no momentum, create momentum of rand{0..10}
+	if(priceDirectionalMagnitude == 0)
+		priceDirectionalMagnitude = Utilities.rand.nextInt(10) - 5; 
+	return priceDirectionalMagnitude;
 	}
 
 }

@@ -29,50 +29,71 @@ public class Nit extends Strategy {
 	 * TODO: Architecture needs a lot of work here.
 	 */
 	public Decision generateDecision(Player player) {
-		
-		//TODO
+
+		// TODO
 		Decision decision = new Decision("undecided");
-		
+
 		PersonalPredicateMap personalPredicateMap = player.personalPredicateMap;
 		int totalWorth = Market.ratPrice * player.rats + player.dollars;
 		double pcntRats = 1.0 * player.rats * Market.ratPrice / totalWorth;
-		//  Personal Predicates
-		boolean twenty_percent_invested = personalPredicateMap.get("20% invested");
-		boolean thirty_percent_invested = personalPredicateMap.get("30% invested");
-		boolean thirtyfive_percent_invested = personalPredicateMap.get("35% invested");
-		boolean forty_percent_invested = personalPredicateMap.get("40% invested");
-		boolean fifty_percent_invested = personalPredicateMap.get("50% invested");
-		boolean seventy_percent_invested = personalPredicateMap.get("70% invested");
-		//  Global Predicates
-		int numConsecUptrends = (Integer)GlobalPredicateMap.get("number of consecutive uptrends");
-		int numConsecDowntrends = (Integer)GlobalPredicateMap.get("number of consecutive downtrends");
+		// Personal Predicates
+		boolean twenty_percent_invested = personalPredicateMap
+				.get("20% invested");
+		boolean thirty_percent_invested = personalPredicateMap
+				.get("30% invested");
+		boolean thirtyfive_percent_invested = personalPredicateMap
+				.get("35% invested");
+		boolean forty_percent_invested = personalPredicateMap
+				.get("40% invested");
+		boolean fifty_percent_invested = personalPredicateMap
+				.get("50% invested");
+		boolean seventy_percent_invested = personalPredicateMap
+				.get("70% invested");
+		// Global Predicates
+		int numConsecUptrends = (Integer) GlobalPredicateMap
+				.get("number of consecutive uptrends");
+		int numConsecDowntrends = (Integer) GlobalPredicateMap
+				.get("number of consecutive downtrends");
 
-				
-			if(numConsecUptrends > 2 && !twenty_percent_invested){		
-					// Calculate how many rats are needed to fill 20% of this player's portfolio
-					double pcntToInvest = .2 - pcntRats;
-					int dollarsToAllocate = (int)(pcntToInvest * totalWorth);
-					int ratsToBuy = dollarsToAllocate / Market.ratPrice;
-					decision = new Decision("buy", ratsToBuy);
-			}			
-			if(numConsecUptrends > 3 && !thirty_percent_invested){		
-				// Calculate how many rats are needed to fill 20% of this player's portfolio
-				double pcntToInvest = .3 - pcntRats;
-				int dollarsToAllocate = (int)(pcntToInvest * totalWorth);
-				int ratsToBuy = dollarsToAllocate / Market.ratPrice;
-				decision = new Decision("buy", ratsToBuy);
-			}	
-			if(numConsecUptrends > 4 && !thirtyfive_percent_invested){		
-				// Calculate how many rats are needed to fill 20% of this player's portfolio
-				double pcntToInvest = .35 - pcntRats;
-				int dollarsToAllocate = (int)(pcntToInvest * totalWorth);
-				int ratsToBuy = dollarsToAllocate / Market.ratPrice;
-				decision = new Decision("buy", ratsToBuy);
-			}
-		
-		if(numConsecDowntrends > 2){
+		/**
+		 * Debug statements
+		 */
+		if (Market.DEBUG) {
+			System.out.println("Nit: num consec uptrends:" + numConsecUptrends);
+		}
+		if (numConsecUptrends > 2 && !twenty_percent_invested) {
+			// Calculate how many rats are needed to fill 20% of this player's
+			// portfolio
+			double pcntToInvest = .2 - pcntRats;
+			int dollarsToAllocate = (int) (pcntToInvest * totalWorth);
+			int ratsToBuy = dollarsToAllocate / Market.ratPrice;
+			decision = new Decision("buy", ratsToBuy);
+		}
+		if (numConsecUptrends > 3 && !thirty_percent_invested) {
+			// Calculate how many rats are needed to fill 20% of this player's
+			// portfolio
+			double pcntToInvest = .3 - pcntRats;
+			int dollarsToAllocate = (int) (pcntToInvest * totalWorth);
+			int ratsToBuy = dollarsToAllocate / Market.ratPrice;
+			decision = new Decision("buy", ratsToBuy);
+		}
+		if (numConsecUptrends > 4 && !thirtyfive_percent_invested) {
+			// Calculate how many rats are needed to fill 20% of this player's
+			// portfolio
+			double pcntToInvest = .35 - pcntRats;
+			int dollarsToAllocate = (int) (pcntToInvest * totalWorth);
+			int ratsToBuy = dollarsToAllocate / Market.ratPrice;
+			decision = new Decision("buy", ratsToBuy);
+		}
+
+		if (numConsecDowntrends > 2) {
 			int ratsToSell = totalWorth / Market.ratPrice / 2;
-			decision = new Decision("sell",ratsToSell);
+			decision = new Decision("sell", ratsToSell);
+		}
+		Decision ratBucketDecision = new Decision("buy rat bucket");
+		if(expectedValueMetric.getExpectedValue(player, ratBucketDecision) > .33){
+			System.out.println("BUYYY RAT BUCKET");
+			return ratBucketDecision;
 		}
 		return decision;
 	}

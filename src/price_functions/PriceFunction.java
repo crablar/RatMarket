@@ -13,4 +13,6 @@ public abstract class PriceFunction {
 	
 	public abstract int updatePrice();
 
+	public abstract int getDirectionalMagnitude();
+
 }

@@ -1,5 +1,7 @@
 package ev_metrics;
 
+import java.util.ArrayList;
+
 import ratmarket.Decision;
 import ratmarket.Player;
 
@@ -14,8 +16,8 @@ import ratmarket.Player;
  * 
  */
 
-public interface ExpectedValueMetric {
+public abstract class ExpectedValueMetric {
 
-	public double getExpectedValue(Player player, Decision decision);
+	public abstract double getExpectedValue(Player player, Decision decision);
 
 }

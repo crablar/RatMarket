@@ -15,6 +15,7 @@ public class RatBucket {
 	public void advance(){
 		turnsInPlay++;
 		numRatsInside++;
+		price++;
 	}
 	
 	public String getInfo(){

@@ -2,6 +2,7 @@ package ratmarket;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Utilities {
@@ -21,9 +22,11 @@ public class Utilities {
 		ArrayList<Integer> priceHistory;
 		if(Market.priceHistory.size() < 51)
 			priceHistory = Market.priceHistory;
-		else
-			priceHistory = (ArrayList<Integer>) Market.priceHistory.subList(Market.priceHistory.size() - maxSize, Market.priceHistory.size());
-		return priceHistory;
+		else{
+			List<Integer> sublist = Market.priceHistory.subList(Market.priceHistory.size() - maxSize, Market.priceHistory.size());
+			priceHistory = new ArrayList<Integer>(sublist);
+			}
+			return priceHistory;
 	}
 
 		public static int getAverage(ArrayList<Integer> priceHistory) {
