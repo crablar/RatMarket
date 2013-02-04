@@ -30,8 +30,7 @@ public class Nit extends Strategy {
 	 */
 	public Decision generateDecision(Player player) {
 
-		// TODO
-		Decision decision = new Decision("undecided");
+		Decision decision = Decision.doNothing();
 
 		PersonalPredicateMap personalPredicateMap = player.personalPredicateMap;
 		int totalWorth = Market.ratPrice * player.rats + player.dollars;
@@ -55,12 +54,6 @@ public class Nit extends Strategy {
 		int numConsecDowntrends = (Integer) GlobalPredicateMap
 				.get("number of consecutive downtrends");
 
-		/**
-		 * Debug statements
-		 */
-		if (Market.DEBUG) {
-			System.out.println("Nit: num consec uptrends:" + numConsecUptrends);
-		}
 		if (numConsecUptrends > 2 && !twenty_percent_invested) {
 			// Calculate how many rats are needed to fill 20% of this player's
 			// portfolio
@@ -92,7 +85,7 @@ public class Nit extends Strategy {
 		}
 		Decision ratBucketDecision = new Decision("buy rat bucket");
 		if(expectedValueMetric.getExpectedValue(player, ratBucketDecision) > .33){
-			System.out.println("BUYYY RAT BUCKET");
+			ratBucketDecision.print();
 			return ratBucketDecision;
 		}
 		return decision;

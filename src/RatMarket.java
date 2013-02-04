@@ -39,7 +39,7 @@ public class RatMarket {
 				.println("Alice and Bob flip a coin.  It is randomly decided that "
 						+ currentPlayer.name + " will take the first turn.\n");
 		// Main game loop
-		while (alice.dollars < GOAL && bob.dollars < GOAL && turn < 1000) {
+		while (alice.dollars < GOAL && bob.dollars < GOAL && turn < 10) {
 			turn++;
 			
 			//TODO: this update should be moved to Market
@@ -49,8 +49,8 @@ public class RatMarket {
 			else
 				Market.ratBucket = Utilities.generateRatBucket();
 			
-			GlobalPredicateMap.updateAllPredicates();
 			Market.updatePrice();
+			GlobalPredicateMap.updateAllPredicates();
 			printTurnDetails(alice, bob, currentPlayer, turn);
 			currentPlayer.takeTurn();
 			A_TURN = !A_TURN;
@@ -62,9 +62,9 @@ public class RatMarket {
 	static void printTurnDetails(Player alice, Player bob, Player currentPlayer, int turn){
 		System.out.println("**********Turn " + turn + ": "+ currentPlayer.name +" begins***********");
 		System.out.println("----------------------------");
-		System.out.println("Alice has " + alice.dollars + " dollars and " + alice.rats + " rats.");
-		System.out.println("Bob has " + bob.dollars + " dollars and " + bob.rats + " rats.");
-		System.out.println("The market price of a rat is $" + Market.ratPrice + ".");
+		System.out.println("Alice: $" + alice.dollars + " and " + alice.rats + " rats.");
+		System.out.println("Bob $" + bob.dollars + " and " + bob.rats + " rats.");
+		System.out.println("Price of a rat: $" + Market.ratPrice + ".");
 		System.out.println(Market.simplePriceHistory());
 		System.out.println(Market.ratBucket.getInfo());
 		System.out.println("----------------------------\n");

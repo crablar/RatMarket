@@ -24,22 +24,21 @@ public class GlobalPredicateMap {
 		map.put(predicateName, state);
 	}
 
-	// TODO
 	public static void updateAllPredicates() {
 		updateDowntrendUptrend();
 	}
 
 	public static void updateDowntrendUptrend() {
 		if (Market.hasUpwardMomentum()) {
-			Integer numConsecutiveUptrends = map.get("number of uptrends") == null ? 0
-					: ((Integer) map.get("number of uptrends") + 1);
+			Integer numConsecutiveUptrends = map.get("number of consecutive uptrends") == null ? 0
+					: ((Integer) map.get("number of consecutive uptrends") + 1);
 			updatePredicate("number of consecutive uptrends",
 					numConsecutiveUptrends);
 			updatePredicate("number of consecutive downtrends", 0);
 
 		} else {
-			Integer numConsecutiveDowntrends = map.get("number of downtrends") == null ? 0
-					: ((Integer) map.get("number of downtrends") - 1);
+			Integer numConsecutiveDowntrends = map.get("number of consecutive downtrends") == null ? 0
+					: ((Integer) map.get("number of consecutive downtrends") - 1);
 			updatePredicate("number of consecutive downtrends",
 					numConsecutiveDowntrends);
 			updatePredicate("number of consecutive uptrends", 0);

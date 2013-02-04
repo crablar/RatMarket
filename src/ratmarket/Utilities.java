@@ -20,10 +20,10 @@ public class Utilities {
 
 		public static ArrayList<Integer> trimPriceHistory(int maxSize) {
 		ArrayList<Integer> priceHistory;
-		if(Market.priceHistory.size() < 51)
-			priceHistory = Market.priceHistory;
+		if(Market.priceHistoryLong.size() < 51)
+			priceHistory = Market.priceHistoryLong;
 		else{
-			List<Integer> sublist = Market.priceHistory.subList(Market.priceHistory.size() - maxSize, Market.priceHistory.size());
+			List<Integer> sublist = Market.priceHistoryLong.subList(Market.priceHistoryLong.size() - maxSize, Market.priceHistoryLong.size());
 			priceHistory = new ArrayList<Integer>(sublist);
 			}
 			return priceHistory;

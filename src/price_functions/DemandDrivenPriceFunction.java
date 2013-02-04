@@ -14,16 +14,19 @@ import ratmarket.Utilities;
  */
 
 public class DemandDrivenPriceFunction extends PriceFunction {
-
-	private int priceDirectionalMagnitude;
+	
+	public DemandDrivenPriceFunction(){
+		priceDirectionalMagnitude = 0;
+		magnitudeHistory = new ArrayList<Integer>();
+	}
 	
 	/**
-	 * Calculates and returns an updated price.
+	 * Calculates and returns an updated price.  Modifies the Market price.
 	 * 
 	 * @return
 	 */
 	public int updatePrice() {
-		if (Market.priceHistory.isEmpty())
+		if (Market.priceHistoryLong.isEmpty())
 			return Market.STARTING_PRICE;
 		ArrayList<Integer> priceHistory = Utilities.trimPriceHistory(50);
 		int movingAverage = Utilities.getAverage(priceHistory);

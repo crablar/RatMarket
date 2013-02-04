@@ -33,29 +33,46 @@ public class Decision {
 	/**
 	 * Constructs a sell or buy decision depending on parameters.
 	 * 
-	 * buy 15 --> Decision to buy 15
-	 * sell 1 --> Decision to sell 1
+	 * buy 15 --> Decision to buy 15 sell 1 --> Decision to sell 1
 	 * 
 	 * @param decisionType
 	 * @param rats
 	 */
 	public Decision(String decisionType, int rats) {
+		this.decisionType = decisionType;
 		ratsToBuy = 0;
+		ratsToSell = 0;
 		buyRatBucket = false;
-		if (decisionType.equals("sell")) {
-			this.decisionType = decisionType;
+		if (decisionType.equals("sell"))
 			this.ratsToSell = rats;
-		}
-		this.decisionType = "buy";
-		this.ratsToBuy = rats;
+		if (decisionType.equals("buy")) 
+			this.ratsToBuy = rats;
 	}
 	
-	public boolean isBuy(){
+	public static Decision doNothing(){
+		return new Decision("do nothing", 0);
+	}
+
+	public boolean isBuy() {
 		return ratsToBuy > 0;
 	}
 
-	public boolean isSell(){
+	public boolean isSell() {
 		return ratsToSell < 0;
 	}
-	
+
+	public String toString() {
+		if(decisionType.equals("do nothing"))
+			return decisionType;
+		if(decisionType.equals("sell"))
+			return "sell " + ratsToSell;
+		if(decisionType.equals("buy"))
+			return "buy " + ratsToBuy;
+		return "buy rat bucket";
+	}
+
+	public void print() {
+		System.out.println(this);
+	}
+
 }
