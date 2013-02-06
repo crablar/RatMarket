@@ -30,7 +30,11 @@ public class Player{
 
 	public void takeTurn() {
 		Decision decision = strategy.generateDecision(this);
-		DecisionProcessor.processDecision(decision, this);
+		boolean sensicalDecision = DecisionProcessor.processDecision(decision, this);
+		if(!sensicalDecision){
+			decision = Decision.doNothing();
+			System.out.println(this.name + " submits an invalid decision.".toUpperCase());
+		}
 		if(!decision.isBuy())
 			Market.turnsSinceLastBuy++;
 		if(!decision.isSell())

@@ -1,6 +1,7 @@
 package predicates;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import ratmarket.Market;
 
@@ -38,11 +39,16 @@ public class GlobalPredicateMap {
 
 		} else {
 			Integer numConsecutiveDowntrends = map.get("number of consecutive downtrends") == null ? 0
-					: ((Integer) map.get("number of consecutive downtrends") - 1);
+					: ((Integer) map.get("number of consecutive downtrends") + 1);
 			updatePredicate("number of consecutive downtrends",
 					numConsecutiveDowntrends);
 			updatePredicate("number of consecutive uptrends", 0);
 		}
+	}
+
+	public static void printGlobalState() {
+		for(Entry<String, Object> e : map.entrySet())
+			System.out.println(e.getKey() + ": " + e.getValue());
 	}
 
 }

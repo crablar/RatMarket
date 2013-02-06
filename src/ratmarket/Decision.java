@@ -45,11 +45,11 @@ public class Decision {
 		buyRatBucket = false;
 		if (decisionType.equals("sell"))
 			this.ratsToSell = rats;
-		if (decisionType.equals("buy")) 
+		if (decisionType.equals("buy"))
 			this.ratsToBuy = rats;
 	}
-	
-	public static Decision doNothing(){
+
+	public static Decision doNothing() {
 		return new Decision("do nothing", 0);
 	}
 
@@ -62,13 +62,14 @@ public class Decision {
 	}
 
 	public String toString() {
-		if(decisionType.equals("do nothing"))
+		if (decisionType.equals("do nothing"))
 			return decisionType;
-		if(decisionType.equals("sell"))
+		if (decisionType.equals("sell"))
 			return "sell " + ratsToSell;
-		if(decisionType.equals("buy"))
+		if (decisionType.equals("buy"))
 			return "buy " + ratsToBuy;
-		return "buy rat bucket";
+		return "buys the rat bucket and receives "
+				+ Market.ratBucket.numRatsInside + " rats.";
 	}
 
 	public void print() {

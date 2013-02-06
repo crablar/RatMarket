@@ -80,12 +80,11 @@ public class Nit extends Strategy {
 		}
 
 		if (numConsecDowntrends > 2) {
-			int ratsToSell = totalWorth / Market.ratPrice / 2;
+			int ratsToSell = player.rats / 2;
 			decision = new Decision("sell", ratsToSell);
 		}
 		Decision ratBucketDecision = new Decision("buy rat bucket");
 		if(expectedValueMetric.getExpectedValue(player, ratBucketDecision) > .33){
-			ratBucketDecision.print();
 			return ratBucketDecision;
 		}
 		return decision;
