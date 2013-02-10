@@ -40,6 +40,8 @@ public class RatMarket {
 			Market.updatePrice();
 			Utilities.manageRatBucket();
 			GlobalPredicateMap.updateAllPredicates();
+//			if((Boolean) GlobalPredicateMap.get("market freeze"))
+//				Utilities.economicStimulus();
 			// GlobalPredicateMap.printGlobalState();
 			Utilities.printTurnDetails(alice, bob, currentPlayer, turn);
 			currentPlayer.takeTurn();

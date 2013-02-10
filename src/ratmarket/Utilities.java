@@ -62,4 +62,9 @@ public class Utilities {
 		System.out.println(Market.ratBucket.getInfo());
 	}
 
+	public static void economicStimulus() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

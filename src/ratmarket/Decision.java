@@ -12,8 +12,9 @@ public class Decision {
 	public String decisionType;
 	public int ratsToSell;
 	public int ratsToBuy;
-	public boolean buyRatBucket;
-
+	public boolean isRatBucketDecision;
+	public int profit;
+	
 	/**
 	 * Constructs a ratbucket buy Decision if given the @param "buy rat bucket"
 	 * Constructs a null Decision if given anything else.
@@ -25,9 +26,9 @@ public class Decision {
 		ratsToSell = 0;
 		this.decisionType = decisionType;
 		if (decisionType.equals("buy rat bucket"))
-			buyRatBucket = true;
+			isRatBucketDecision = true;
 		else
-			buyRatBucket = false;
+			isRatBucketDecision = false;
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class Decision {
 		this.decisionType = decisionType;
 		ratsToBuy = 0;
 		ratsToSell = 0;
-		buyRatBucket = false;
+		isRatBucketDecision = false;
 		if (decisionType.equals("sell"))
 			this.ratsToSell = rats;
 		if (decisionType.equals("buy"))

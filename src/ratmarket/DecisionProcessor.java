@@ -22,11 +22,11 @@ public class DecisionProcessor {
 	public static boolean processDecision(Decision decision, Player player) {
 		if (!getValidity(decision, player))
 			return false;
-		System.out.println(("--- " + player.name + ": " + decision + " ---\n")
+		System.out.println(("--- " + player.name + ": " + decision + " ---")
 				.toUpperCase());
-		if (decision.buyRatBucket)
-			System.out.println(player.name + " gets "
-					+ Market.ratBucket.numRatsInside + " rats.\n");
+		if (decision.isRatBucketDecision)
+			System.out.println("*****" + player.name + " has an ev gain of " + decision.profit + "*****");
+		System.out.println();
 		if (decision.ratsToBuy > 0) {
 			player.dollars -= decision.ratsToBuy * Market.ratPrice;
 			Market.lastBuyOrder = decision.ratsToBuy;
@@ -35,7 +35,7 @@ public class DecisionProcessor {
 			player.dollars += decision.ratsToSell * Market.ratPrice;
 			Market.lastSellOrder = decision.ratsToSell;
 			Market.turnsSinceLastSell = 0;
-		} else if (decision.buyRatBucket) {
+		} else if (decision.isRatBucketDecision) {
 			player.dollars -= Market.ratBucket.price;
 			player.rats += Market.ratBucket.numRatsInside;
 			Market.ratBucket = null;
@@ -44,7 +44,7 @@ public class DecisionProcessor {
 	}
 
 	private static boolean getValidity(Decision decision, Player player) {
-		if (decision.buyRatBucket)
+		if (decision.isRatBucketDecision)
 			return Market.ratBucket.price <= player.dollars;
 		if (decision.isSell())
 			return player.rats >= decision.ratsToSell;

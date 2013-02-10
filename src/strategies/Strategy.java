@@ -2,7 +2,7 @@ package strategies;
 
 import ratmarket.Decision;
 import ratmarket.Player;
-import ev_metrics.ExpectedValueMetric;
+import ev_metrics.ValuationMetric;
 
 /**
  * The Strategy class. A strategy takes predicates from the PersonalPredicateMap
@@ -19,7 +19,7 @@ public abstract class Strategy {
 	/**
 	 * The Strategy uses a single ExpectedValueMetric.
 	 */
-	public ExpectedValueMetric expectedValueMetric;
+	public ValuationMetric expectedValueMetric;
 
 	/**
 	 * Generates a decision for a given player.

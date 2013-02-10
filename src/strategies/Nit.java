@@ -5,7 +5,7 @@ import predicates.PersonalPredicateMap;
 import ratmarket.Decision;
 import ratmarket.Market;
 import ratmarket.Player;
-import ev_metrics.ExpectedValueMetric;
+import ev_metrics.ValuationMetric;
 import ev_metrics.ShortTermOutlook;
 
 /**
@@ -23,7 +23,7 @@ import ev_metrics.ShortTermOutlook;
 
 public class Nit extends Strategy {
 
-	public static ExpectedValueMetric expectedValueMetric = new ShortTermOutlook();
+	public static ValuationMetric valuationMetric = new ShortTermOutlook();
 
 	/**
 	 * TODO: Architecture needs a lot of work here.
@@ -84,7 +84,9 @@ public class Nit extends Strategy {
 			decision = new Decision("sell", ratsToSell);
 		}
 		Decision ratBucketDecision = new Decision("buy rat bucket");
-		if(expectedValueMetric.getExpectedValue(player, ratBucketDecision) > .33){
+		//TODO fix this conditional
+		if(valuationMetric.getExpectedValue(player, ratBucketDecision) > .33){
+			ratBucketDecision.profit = valuationMetric.getEffectiveProfit(player, ratBucketDecision);
 			return ratBucketDecision;
 		}
 		return decision;

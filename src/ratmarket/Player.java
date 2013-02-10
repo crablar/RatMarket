@@ -41,5 +41,6 @@ public class Player{
 			Market.turnsSinceLastSell++;
 		personalPredicateMap.updateAllPredicates(this);
 	}
+
 	
 }
