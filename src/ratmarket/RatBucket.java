@@ -5,9 +5,11 @@ public class RatBucket {
 	public int price;
 	public int turnsInPlay;
 	public int numRatsInside;
+	public int turnsTilExpiration;
 	
-	public RatBucket(int rats, int price){
+	public RatBucket(int rats, int price, int turnsTilExpiration){
 		turnsInPlay = 0;
+		this.turnsTilExpiration = turnsTilExpiration;
 		numRatsInside = rats;
 		this.price = price;
 	}
@@ -15,6 +17,7 @@ public class RatBucket {
 	public void advance(){
 		turnsInPlay++;
 		numRatsInside++;
+		turnsTilExpiration--;
 	}
 	
 	public String getInfo(){

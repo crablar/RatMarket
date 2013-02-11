@@ -26,19 +26,34 @@ public class GlobalPredicateMap {
 	}
 
 	public static void updateAllPredicates() {
+		checkMarketFunctionality();
 		updateDowntrendUptrend();
+	}
+
+	/**
+	 * Checks to make sure there hasn't been an excessive amount of time without
+	 * any decisions being made.
+	 */
+	private static void checkMarketFunctionality() {
+		boolean functionalMarket = true;
+		if(Market.turnsSinceLastBuy > 10 && Market.turnsSinceLastSell > 10)
+			if(Market.consecutiveExpiredRatBuckets > 10)
+				functionalMarket = true;
+		map.put("functional market", functionalMarket);
 	}
 
 	public static void updateDowntrendUptrend() {
 		if (Market.hasUpwardMomentum()) {
-			Integer numConsecutiveUptrends = map.get("number of consecutive uptrends") == null ? 0
+			Integer numConsecutiveUptrends = map
+					.get("number of consecutive uptrends") == null ? 0
 					: ((Integer) map.get("number of consecutive uptrends") + 1);
 			updatePredicate("number of consecutive uptrends",
 					numConsecutiveUptrends);
 			updatePredicate("number of consecutive downtrends", 0);
 
 		} else {
-			Integer numConsecutiveDowntrends = map.get("number of consecutive downtrends") == null ? 0
+			Integer numConsecutiveDowntrends = map
+					.get("number of consecutive downtrends") == null ? 0
 					: ((Integer) map.get("number of consecutive downtrends") + 1);
 			updatePredicate("number of consecutive downtrends",
 					numConsecutiveDowntrends);
@@ -47,7 +62,7 @@ public class GlobalPredicateMap {
 	}
 
 	public static void printGlobalState() {
-		for(Entry<String, Object> e : map.entrySet())
+		for (Entry<String, Object> e : map.entrySet())
 			System.out.println(e.getKey() + ": " + e.getValue());
 	}
 

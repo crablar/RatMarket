@@ -15,6 +15,7 @@ public class Market {
 	public static int lastSellOrder = STARTING_PRICE;
 	public static int turnsSinceLastBuy = 0;
 	public static int turnsSinceLastSell = 0;
+	public static int consecutiveExpiredRatBuckets = 0;
 	public static RatBucket ratBucket = null;
 	
 	//  A list of up to 100 of the previous prices
@@ -51,6 +52,10 @@ public class Market {
 	
 	public static boolean hasUpwardMomentum(){
 		return priceFunction.getDirectionalMagnitude() > 0;
+	}
+	
+	public static boolean hasDownwardMomentum(){
+		return priceFunction.getDirectionalMagnitude() < 0;
 	}
 
 	

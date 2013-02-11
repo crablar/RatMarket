@@ -35,13 +35,15 @@ public class RatMarket {
 				.println("Alice and Bob flip a coin.  It is randomly decided that "
 						+ currentPlayer.name + " will take the first turn.\n");
 		// Main game loop
-		while (alice.dollars < GOAL && bob.dollars < GOAL) {
+		while (alice.dollars < GOAL && bob.dollars < GOAL && turn < 100) {
 			turn++;
 			Market.updatePrice();
 			Utilities.manageRatBucket();
 			GlobalPredicateMap.updateAllPredicates();
-//			if((Boolean) GlobalPredicateMap.get("market freeze"))
-//				Utilities.economicStimulus();
+			if(!(Boolean)GlobalPredicateMap.get("functional market")){
+				System.out.println("Crash the market!!!!!!");
+				Utilities.marketCrash();
+			}
 			// GlobalPredicateMap.printGlobalState();
 			Utilities.printTurnDetails(alice, bob, currentPlayer, turn);
 			currentPlayer.takeTurn();

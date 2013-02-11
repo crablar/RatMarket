@@ -8,21 +8,30 @@ public class Utilities {
 
 	public static Random rand = new Random();
 
-	// The RatBucket is initialized with r rats, where r is in int from 1 to 10.
+	// The RatBucket is initialized with r rats, where r is an int from 1 to 10.
 	// The price of the ratbucket price is initialized to x, where x = 1/4 *
-	// ((random int between 1 and 8) * (market price of a rat) * r
+	// (m * (market price of a rat) * r
+	// The bucket also has an expiration; it will stay in play for m turns.
+	// Note that as m increases, the price of the ratbucket goes up, and higher
+	// priced buckets only become reasonable purchases when they are nearing the
+	// unknown expiration date
 	public static RatBucket generateRatBucket() {
 		int r = 1 + rand.nextInt(10);
 		int mktPrice = Market.ratPrice;
-		int multiple = rand.nextInt(9);
-		int x = r + ((r - 1) * mktPrice * multiple) / 4;
-		return new RatBucket(r, x);
+		int m = rand.nextInt(9);
+		int x = r + ((r - 1) * mktPrice * m) / 4;
+		int expiration = m;
+		return new RatBucket(r, x, expiration);
 	}
 
 	public static void manageRatBucket() {
 		if (Market.ratBucket != null) {
 			Market.ratBucket.advance();
-		} else
+			if(Market.ratBucket.turnsTilExpiration == 0){
+				Market.ratBucket = null;
+			}
+		} 
+		if(Market.ratBucket == null)
 			Market.ratBucket = Utilities.generateRatBucket();
 	}
 
@@ -52,19 +61,22 @@ public class Utilities {
 		}
 		return total / count;
 	}
-	
-	public static void printTurnDetails(Player alice, Player bob, Player currentPlayer, int turn){
-		System.out.println("**********Turn " + turn + ": "+ currentPlayer.name +" begins***********");
-		System.out.println("Alice: $" + alice.dollars + " and " + alice.rats + " rats.");
-		System.out.println("Bob $" + bob.dollars + " and " + bob.rats + " rats.");
+
+	public static void printTurnDetails(Player alice, Player bob,
+			Player currentPlayer, int turn) {
+		System.out.println("**********Turn " + turn + ": " + currentPlayer.name
+				+ " begins***********");
+		System.out.println("Alice: $" + alice.dollars + " and " + alice.rats
+				+ " rats.");
+		System.out.println("Bob $" + bob.dollars + " and " + bob.rats
+				+ " rats.");
 		System.out.println("Price of a rat: $" + Market.ratPrice + ".");
 		System.out.println(Market.simplePriceHistory());
 		System.out.println(Market.ratBucket.getInfo());
 	}
 
-	public static void economicStimulus() {
-		// TODO Auto-generated method stub
-		
+	public static void marketCrash() {
+		Market.ratPrice = 1;
 	}
 
 }

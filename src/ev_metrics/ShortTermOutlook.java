@@ -60,8 +60,6 @@ public class ShortTermOutlook extends ValuationMetric {
 	}
 
 	private int ratBucketValue() {
-		System.out.println("$" + (Market.ratBucket.numRatsInside * Market.ratPrice
-				- Market.ratBucket.price));
 		return Market.ratBucket.numRatsInside * Market.ratPrice
 				- Market.ratBucket.price;
 	}

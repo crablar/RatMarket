@@ -14,14 +14,14 @@ import ratmarket.Utilities;
  */
 
 public class DemandDrivenPriceFunction extends PriceFunction {
-	
-	public DemandDrivenPriceFunction(){
+
+	public DemandDrivenPriceFunction() {
 		priceDirectionalMagnitude = 0;
 		magnitudeHistory = new ArrayList<Integer>();
 	}
-	
+
 	/**
-	 * Calculates and returns an updated price.  Modifies the Market price.
+	 * Calculates and returns an updated price. Modifies the Market price.
 	 * 
 	 * @return
 	 */
@@ -30,13 +30,10 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 			return Market.STARTING_PRICE;
 		ArrayList<Integer> priceHistory = Utilities.trimPriceHistory(50);
 		int movingAverage = Utilities.getAverage(priceHistory);
-		int lastBuyTimestamp = Market.turnsSinceLastBuy;
-		int lastSellTimestamp = Market.turnsSinceLastSell;
-		priceDirectionalMagnitude = lastSellTimestamp - lastBuyTimestamp;
-		
 		priceDirectionalMagnitude = getDirectionalMagnitude();
-		
-		if (priceDirectionalMagnitude < 0 && priceDirectionalMagnitude + Market.ratPrice > 0) {
+		System.out.println("PriceDirectionalMagnitude = " + priceDirectionalMagnitude + "\n");
+		if (priceDirectionalMagnitude < 0
+				&& priceDirectionalMagnitude + Market.ratPrice > 0) {
 			if (Market.ratPrice > movingAverage)
 				// Note that priceDirectionalMagnitude should be negative here
 				Market.ratPrice += priceDirectionalMagnitude;
@@ -52,12 +49,15 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 		// If the market is sideways, the price gets decremented
 		return Market.ratPrice;
 	}
-	
-	public int getDirectionalMagnitude(){
-	//  If price has no momentum, create momentum of rand{0..10}
-	if(priceDirectionalMagnitude == 0)
-		priceDirectionalMagnitude = Utilities.rand.nextInt(10) - 5; 
-	return priceDirectionalMagnitude;
+
+	public int getDirectionalMagnitude() {
+		int lastBuyTimestamp = Market.turnsSinceLastBuy;
+		int lastSellTimestamp = Market.turnsSinceLastSell;
+		priceDirectionalMagnitude = lastSellTimestamp - lastBuyTimestamp;
+		// If price has no momentum, create momentum of rand{-5..5}
+		if (priceDirectionalMagnitude == 0)
+			priceDirectionalMagnitude = Utilities.rand.nextInt(10) - 5;
+		return priceDirectionalMagnitude;
 	}
 
 }

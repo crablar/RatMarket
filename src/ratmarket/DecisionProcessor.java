@@ -25,20 +25,25 @@ public class DecisionProcessor {
 		System.out.println(("--- " + player.name + ": " + decision + " ---")
 				.toUpperCase());
 		if (decision.isRatBucketDecision)
-			System.out.println("*****" + player.name + " has an ev gain of " + decision.profit + "*****");
+			System.out.println("*****" + player.name + " has an ev gain of "
+					+ decision.profit + "*****");
 		System.out.println();
-		if (decision.ratsToBuy > 0) {
+		if (decision.isBuy()) {
 			player.dollars -= decision.ratsToBuy * Market.ratPrice;
+			player.rats += decision.ratsToBuy;
 			Market.lastBuyOrder = decision.ratsToBuy;
 			Market.turnsSinceLastBuy = 0;
-		} else if (decision.ratsToSell > 0) {
+		} else if (decision.isSell()) {
+			System.out.println("SOMEONE IS SELLINGIGINGING");
 			player.dollars += decision.ratsToSell * Market.ratPrice;
+			player.rats -= decision.ratsToSell;
 			Market.lastSellOrder = decision.ratsToSell;
 			Market.turnsSinceLastSell = 0;
 		} else if (decision.isRatBucketDecision) {
 			player.dollars -= Market.ratBucket.price;
 			player.rats += Market.ratBucket.numRatsInside;
 			Market.ratBucket = null;
+			Market.consecutiveExpiredRatBuckets = 0;
 		}
 		return true;
 	}
