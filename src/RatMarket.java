@@ -20,8 +20,6 @@ import strategies.StrategyMap;
 
 public class RatMarket {
 
-	public final static int GOAL = 500;
-
 	public static void main(String[] args) {
 		StrategyMap.initialize();
 		Player alice = new Player("Alice");
@@ -29,28 +27,29 @@ public class RatMarket {
 		alice.strategy = StrategyMap.get("nit");
 		bob.strategy = StrategyMap.get("nit");
 		int turn = 0;
+		Utilities.manageRatBucket();
 		Player currentPlayer;
 		currentPlayer = Utilities.rand.nextBoolean() ? alice : bob;
-		System.out
-				.println("Alice and Bob flip a coin.  It is randomly decided that "
-						+ currentPlayer.name + " will take the first turn.\n");
+		System.out.println("Alice and Bob flip a coin.\n" + currentPlayer.name
+				+ " will take the first turn.\n");
 		// Main game loop
-		while (alice.dollars < GOAL && bob.dollars < GOAL && turn < 100) {
+		while (turn < 100) {
 			turn++;
 			Market.updatePrice();
-			Utilities.manageRatBucket();
 			GlobalPredicateMap.updateAllPredicates();
-			if(!(Boolean)GlobalPredicateMap.get("functional market")){
+			if (!(Boolean) GlobalPredicateMap.get("functional market")) {
 				System.out.println("Crash the market!!!!!!");
 				Utilities.marketCrash();
 			}
-			// GlobalPredicateMap.printGlobalState();
 			Utilities.printTurnDetails(alice, bob, currentPlayer, turn);
 			currentPlayer.takeTurn();
+			Utilities.manageRatBucket();
 			currentPlayer = currentPlayer == bob ? alice : bob;
 		}
-		System.out.println("The game is over.  " + currentPlayer.name
-				+ "  is the winner.");
+		int aliceNetWorth = alice.dollars + alice.rats * Market.ratPrice;
+		int bobNetWorth = bob.dollars + bob.rats * Market.ratPrice;
+		Player winner = aliceNetWorth > bobNetWorth ? alice : bob;
+		System.out.println("The game is over.\nBob's net worth is $" + bobNetWorth + "\nAlice's net worth is $" + aliceNetWorth + "\n" + winner.name + " is the winner.");
 	}
 
 }

@@ -8,31 +8,23 @@ public class Utilities {
 
 	public static Random rand = new Random();
 
-	// The RatBucket is initialized with r rats, where r is an int from 1 to 10.
-	// The price of the ratbucket price is initialized to x, where x = 1/4 *
-	// (m * (market price of a rat) * r
-	// The bucket also has an expiration; it will stay in play for m turns.
-	// Note that as m increases, the price of the ratbucket goes up, and higher
-	// priced buckets only become reasonable purchases when they are nearing the
-	// unknown expiration date
 	public static RatBucket generateRatBucket() {
-		int r = 1 + rand.nextInt(10);
-		int mktPrice = Market.ratPrice;
-		int m = rand.nextInt(9);
-		int x = r + ((r - 1) * mktPrice * m) / 4;
-		int expiration = m;
-		return new RatBucket(r, x, expiration);
+		int numRats = 1 + rand.nextInt(10);
+		int price = 5 * Market.ratPrice;
+		int expiration = rand.nextInt(10);
+		double eor = 1.0 * expiration / numRats;
+		// If it expires quickly but has many rats, it is cheap
+		int bucketPrice = (int) (price * eor);
+
+		return new RatBucket(numRats, bucketPrice, expiration);
 	}
 
 	public static void manageRatBucket() {
-		if (Market.ratBucket != null) {
+		if (Market.ratBucket == null
+				|| Market.ratBucket.turnsTilExpiration == 0){
+			Market.ratBucket = Utilities.generateRatBucket();}
+		else
 			Market.ratBucket.advance();
-			if(Market.ratBucket.turnsTilExpiration == 0){
-				Market.ratBucket = null;
-			}
-		} 
-		if(Market.ratBucket == null)
-			Market.ratBucket = Utilities.generateRatBucket();
 	}
 
 	public static ArrayList<Integer> trimPriceHistory(int maxSize) {
@@ -72,7 +64,8 @@ public class Utilities {
 				+ " rats.");
 		System.out.println("Price of a rat: $" + Market.ratPrice + ".");
 		System.out.println(Market.simplePriceHistory());
-		System.out.println(Market.ratBucket.getInfo());
+		if (Market.ratBucket != null)
+			System.out.println(Market.ratBucket.getInfo());
 	}
 
 	public static void marketCrash() {

@@ -29,9 +29,10 @@ public class Market {
 	public static String simplePriceHistory(){
 		if(priceHistoryLong.isEmpty())
 			return "There is no price history.";
-		int temp1 = priceHistoryLong.get(0);
+		int startingIndex = Math.max(0, priceHistoryLong.size() - 5);
+		int temp1 = priceHistoryLong.get(startingIndex++);
 		String result = "Price History: " + temp1;
-		for(int i = 1; i < priceHistoryLong.size() && i < 5; i++){
+		for(int i = startingIndex; i < priceHistoryLong.size() && i < startingIndex + 4; i++){
 			int temp2 = priceHistoryLong.get(i);
 			char marketDirection = 'v';
 			if(temp2 > temp1)

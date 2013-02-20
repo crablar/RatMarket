@@ -25,8 +25,8 @@ public class DecisionProcessor {
 		System.out.println(("--- " + player.name + ": " + decision + " ---")
 				.toUpperCase());
 		if (decision.isRatBucketDecision)
-			System.out.println("*****" + player.name + " has an ev gain of "
-					+ decision.profit + "*****");
+			System.out.println("*****" + player.name + " attained a "
+					+ decision.profit + " increase in net worth*****");
 		System.out.println();
 		if (decision.isBuy()) {
 			player.dollars -= decision.ratsToBuy * Market.ratPrice;
