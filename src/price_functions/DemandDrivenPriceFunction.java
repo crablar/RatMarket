@@ -36,6 +36,8 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 		if (priceDirectionalMagnitude < 0) {
 			if (Market.ratPrice > movingAverage)
 				Market.ratPrice = Math.max(1, Market.ratPrice + priceDirectionalMagnitude);
+			else
+				Market.ratPrice = Math.max(1, Market.ratPrice - 1);
 		}
 		if (priceDirectionalMagnitude > 0) {
 			if (Market.ratPrice < movingAverage)

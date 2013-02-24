@@ -58,6 +58,15 @@ public class Market {
 	public static boolean hasDownwardMomentum(){
 		return priceFunction.getDirectionalMagnitude() < 0;
 	}
+	
+	public static void wipeHistory(){
+		priceHistoryLong = new ArrayList<Integer>();
+		priceHistoryLong.add(1);
+		priceHistoryLong.add(3);
+		priceHistoryLong.add(2);
+		priceHistoryLong.add(3);
+		priceHistoryLong.add(2);
+	}
 
 	
 }

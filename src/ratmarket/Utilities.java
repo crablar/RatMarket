@@ -22,7 +22,8 @@ public class Utilities {
 	public static void manageRatBucket() {
 		if (Market.ratBucket == null
 				|| Market.ratBucket.turnsTilExpiration == 0){
-			Market.ratBucket = Utilities.generateRatBucket();}
+			Market.ratBucket = Utilities.generateRatBucket();
+			Market.consecutiveExpiredRatBuckets++;}
 		else
 			Market.ratBucket.advance();
 	}
@@ -70,6 +71,10 @@ public class Utilities {
 
 	public static void marketCrash() {
 		Market.ratPrice = 1;
+		Market.wipeHistory();
+		Market.turnsSinceLastBuy = 0;
+		Market.turnsSinceLastSell = 0;
+		Market.consecutiveExpiredRatBuckets = 0;
 	}
 
 }

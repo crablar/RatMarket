@@ -37,8 +37,10 @@ public class GlobalPredicateMap {
 	private static void checkMarketFunctionality() {
 		boolean functionalMarket = true;
 		if(Market.turnsSinceLastBuy > 10 && Market.turnsSinceLastSell > 10)
-			if(Market.consecutiveExpiredRatBuckets > 10)
+			if(Market.consecutiveExpiredRatBuckets < 3)
 				functionalMarket = true;
+			else
+				functionalMarket = false;
 		map.put("functional market", functionalMarket);
 	}
 

@@ -33,7 +33,7 @@ public class RatMarket {
 		System.out.println("Alice and Bob flip a coin.\n" + currentPlayer.name
 				+ " will take the first turn.\n");
 		// Main game loop
-		while (turn < 100) {
+		while (turn < 1000) {
 			turn++;
 			Market.updatePrice();
 			GlobalPredicateMap.updateAllPredicates();
