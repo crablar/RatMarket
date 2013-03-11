@@ -47,12 +47,9 @@ public class Utilities {
 		// Take average of last 50 points, or up to 50 depending on how many
 		// turns have passed
 		int total = 0;
-		int count = 0;
-		for (Integer i : priceHistory) {
+		for (Integer i : priceHistory) 
 			total += i;
-			count++;
-		}
-		return total / count;
+		return total / priceHistory.size();
 	}
 
 	public static void printTurnDetails(Player alice, Player bob,

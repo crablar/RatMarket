@@ -17,9 +17,11 @@ public class Market {
 	public static int turnsSinceLastSell = 0;
 	public static int consecutiveExpiredRatBuckets = 0;
 	public static RatBucket ratBucket = null;
-	
+	public static int movingAverage = STARTING_PRICE;
+
 	//  A list of up to 100 of the previous prices
 	public static ArrayList<Integer> priceHistoryLong = new ArrayList<Integer>();
+	public static int marketLiquidity = 100;
 	
 	/**
 	 * Returns a simple String representation of the price history.

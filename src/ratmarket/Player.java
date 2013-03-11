@@ -33,7 +33,7 @@ public class Player{
 		boolean sensicalDecision = DecisionProcessor.processDecision(decision, this);
 		if(!sensicalDecision){
 			decision = Decision.doNothing();
-			System.out.println(this.name + " submits an invalid decision.".toUpperCase());
+			System.out.println((this.name + " submits an invalid decision.").toUpperCase());
 		}
 		if(!decision.isBuy())
 			Market.turnsSinceLastBuy++;

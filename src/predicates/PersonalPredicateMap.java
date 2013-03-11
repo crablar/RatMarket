@@ -1,52 +1,54 @@
 package predicates;
+
 import java.util.HashMap;
 
 import ratmarket.Market;
 import ratmarket.Player;
 
-
 /**
- * Every Player has a PersonalPredicateMap, which tracks certain predicates about that player.
+ * Every Player has a PersonalPredicateMap, which tracks certain predicates
+ * about that player.
  * 
- * For example:
- * 		@boolean fifty_percent_invested = Alice.map.get(15% invested);
+ * For example: boolean fifty_percent_invested = Alice.map.get(15% invested);
  * 
  * @author jeffreymeyerson
- *
+ * 
  */
 
-public class PersonalPredicateMap{
-	
+public class PersonalPredicateMap {
+
 	public HashMap<String, Boolean> map;
-	
-	public PersonalPredicateMap(){
+
+	public PersonalPredicateMap() {
 		map = new HashMap<String, Boolean>();
 	}
-	
-	public boolean get(String key){
+
+	public boolean get(String key) {
 		return map.get(key);
 	}
-	
-	public void updateAllPredicates(Player player){
+
+	public void updateAllPredicates(Player player) {
 		this.updateInvestmentPercentages(player);
 	}
-	
+
 	/**
-	 * Adds the percentage investment booleans to the player map.  The map can now be queried as follows:
-	 * 		
-	 * 	@boolean fifty_percent_invested = map.get(15% invested);
+	 * Adds the percentage investment booleans to the player map. The map can
+	 * now be queried as follows:
 	 * 
-	 *  Percentages are added to the map in increments of 5.  The maximum percentage that can be queried is 95%.
+	 * @boolean fifty_percent_invested = map.get(15% invested);
+	 * 
+	 *          Percentages are added to the map in increments of 5. The maximum
+	 *          percentage that can be queried is 95%.
 	 * 
 	 * @param player
 	 */
-	public void updateInvestmentPercentages(Player player){
-		
+	public void updateInvestmentPercentages(Player player) {
+
 		int fullLiquidity = player.dollars + player.rats * Market.ratPrice;
 		double pcntDollars = 1.0 * player.dollars / fullLiquidity;
 		double pcntRats = 1 - pcntDollars;
-		
-		//  How could I automate this?
+
+		// How could I automate this?
 		boolean fifteen_percent_invested = pcntRats >= .15 ? true : false;
 		boolean twenty_percent_invested = pcntRats >= .2 ? true : false;
 		boolean twentyfive_percent_invested = pcntRats >= .25 ? true : false;
@@ -84,5 +86,5 @@ public class PersonalPredicateMap{
 		map.put("95% invested", ninetyfive_percent_invested);
 
 	}
-	
+
 }
