@@ -33,7 +33,7 @@ public class RatMarket {
 		System.out.println("Alice and Bob flip a coin.\n" + currentPlayer.name
 				+ " will take the first turn.\n");
 		// Main game loop
-		while (turn < 1000) {
+		while (turn < 10) {
 			turn++;
 			Market.updatePrice();
 			GlobalPredicateMap.updateAllPredicates();
@@ -43,13 +43,16 @@ public class RatMarket {
 			}
 			Utilities.printTurnDetails(alice, bob, currentPlayer, turn);
 			currentPlayer.takeTurn();
+			Market.priceFunction.print();
 			Utilities.manageRatBucket();
 			currentPlayer = currentPlayer == bob ? alice : bob;
 		}
 		int aliceNetWorth = alice.dollars + alice.rats * Market.ratPrice;
 		int bobNetWorth = bob.dollars + bob.rats * Market.ratPrice;
 		Player winner = aliceNetWorth > bobNetWorth ? alice : bob;
-		System.out.println("The game is over.\nBob's net worth is $" + bobNetWorth + "\nAlice's net worth is $" + aliceNetWorth + "\n" + winner.name + " is the winner.");
+		System.out.println("The game is over.\nBob's net worth is $"
+				+ bobNetWorth + "\nAlice's net worth is $" + aliceNetWorth
+				+ "\n" + winner.name + " is the winner.");
 	}
 
 }

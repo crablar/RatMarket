@@ -16,9 +16,16 @@ public abstract class PriceFunction {
 	 * direction and velocity of the market
 	 */
 	public int priceDirectionalMagnitude;
+	public int negativeMagnitude;
+	public int positiveMagnitude;
 	public ArrayList<Integer> magnitudeHistory;
 
 	public abstract int updatePrice();
-	public abstract int getDirectionalMagnitude();
-
+	public abstract int calculateDirectionalMagnitude();
+	public void print() {
+		System.out.println("PriceDirectionalMagnitude = "
+				+ priceDirectionalMagnitude);
+		System.out.println("positiveMagnitude = " + positiveMagnitude);
+		System.out.println("negativeMagnitude = " + negativeMagnitude + "\n");
+	}
 }

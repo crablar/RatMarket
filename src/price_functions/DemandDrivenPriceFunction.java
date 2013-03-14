@@ -17,6 +17,8 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 
 	public DemandDrivenPriceFunction() {
 		priceDirectionalMagnitude = 0;
+		negativeMagnitude = 0;
+		positiveMagnitude = 0;
 		magnitudeHistory = new ArrayList<Integer>();
 	}
 
@@ -30,12 +32,11 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 			return Market.STARTING_PRICE;
 		ArrayList<Integer> priceHistory = Utilities.trimPriceHistory(50);
 		Market.movingAverage = Utilities.getAverage(priceHistory);
-		priceDirectionalMagnitude = getDirectionalMagnitude();
-		System.out.println("PriceDirectionalMagnitude = "
-				+ priceDirectionalMagnitude + "\n");
+		priceDirectionalMagnitude = calculateDirectionalMagnitude();
 		if (priceDirectionalMagnitude < 0) {
 			if (Market.ratPrice > Market.movingAverage)
-				Market.ratPrice = Math.max(1, Market.ratPrice + priceDirectionalMagnitude);
+				Market.ratPrice = Math.max(1, Market.ratPrice
+						+ priceDirectionalMagnitude);
 			else
 				Market.ratPrice = Math.max(1, Market.ratPrice - 1);
 		}
@@ -48,11 +49,12 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 		return Market.ratPrice;
 	}
 
-	public int getDirectionalMagnitude() {
+	
+	public int calculateDirectionalMagnitude() {
 
-		int positiveMomentum = Market.turnsSinceLastSell * Market.lastBuyOrder;
-		int negativeMomentum = Market.turnsSinceLastBuy * Market.lastSellOrder ;
-		priceDirectionalMagnitude += positiveMomentum - negativeMomentum;
+		positiveMagnitude = Market.turnsSinceLastSell * Market.lastBuyOrder;
+		negativeMagnitude = Market.turnsSinceLastBuy * Market.lastSellOrder;
+		priceDirectionalMagnitude += positiveMagnitude - negativeMagnitude;
 		priceDirectionalMagnitude = Math.min(100, priceDirectionalMagnitude);
 		priceDirectionalMagnitude = Math.max(-100, priceDirectionalMagnitude);
 		// If price has no momentum, create momentum of rand{-2..2}
@@ -60,5 +62,6 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 			priceDirectionalMagnitude = Utilities.rand.nextInt(5) - 2;
 		return priceDirectionalMagnitude;
 	}
+
 
 }

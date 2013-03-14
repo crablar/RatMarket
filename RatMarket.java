@@ -15,7 +15,7 @@ import strategies.StrategyMap;
 
 public class RatMarket {
 
-	public final static int GOAL = 1000;
+	public final static int GOAL = 50;
 	public final static int STARTING_PRICE = 1 + Utilities.rand.nextInt(9);
 	
 	public static void main(String[] args) {
