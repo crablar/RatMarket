@@ -35,10 +35,6 @@ public class Player{
 			decision = Decision.doNothing();
 			System.out.println((this.name + " submits an invalid decision.").toUpperCase());
 		}
-		if(!decision.isBuy())
-			Market.turnsSinceLastBuy++;
-		if(!decision.isSell())
-			Market.turnsSinceLastSell++;
 		personalPredicateMap.updateAllPredicates(this);
 	}
 

@@ -3,21 +3,28 @@ import java.util.ArrayList;
 
 import price_functions.DemandDrivenPriceFunction;
 import price_functions.PriceFunction;
-;
 
+/**
+ * A singleton class representing the market.  The market is initialized with 
+ * 
+ * @author jeffreymeyerson
+ *
+ */
 
 public class Market {
 	
 	public final static int STARTING_PRICE = 1 + Utilities.rand.nextInt(9);	
 	public static PriceFunction priceFunction = new DemandDrivenPriceFunction();
 	public static int ratPrice = STARTING_PRICE;
-	public static int lastBuyOrder = STARTING_PRICE;
-	public static int lastSellOrder = STARTING_PRICE;
 	public static int turnsSinceLastBuy = 0;
 	public static int turnsSinceLastSell = 0;
 	public static int consecutiveExpiredRatBuckets = 0;
 	public static RatBucket ratBucket = null;
 	public static int movingAverage = STARTING_PRICE;
+	
+	//  The lot sizes of the most recent buy and sell
+	public static int lastBuyOrder = 1;
+	public static int lastSellOrder = 1;
 
 	//  A list of up to 100 of the previous prices
 	public static ArrayList<Integer> priceHistoryLong = new ArrayList<Integer>();
@@ -53,12 +60,12 @@ public class Market {
 			priceHistoryLong.remove(0);
 	}
 	
-	public static boolean hasUpwardMomentum(){
-		return priceFunction.calculateDirectionalMagnitude() > 0;
+	public static boolean hasPositiveMagnitude(){
+		return priceFunction.priceDirectionalMagnitude > 0;
 	}
 	
-	public static boolean hasDownwardMomentum(){
-		return priceFunction.calculateDirectionalMagnitude() < 0;
+	public static boolean hasNegativeMagnitude(){
+		return priceFunction.priceDirectionalMagnitude < 0;
 	}
 	
 	public static void wipeHistory(){

@@ -26,7 +26,7 @@ public class GlobalPredicateMap {
 	}
 
 	public static void updateAllPredicates() {
-		checkMarketFunctionality();
+		updateMarketFunctionality();
 		updateDowntrendUptrend();
 	}
 
@@ -34,7 +34,7 @@ public class GlobalPredicateMap {
 	 * Checks to make sure there hasn't been an excessive amount of time without
 	 * any decisions being made.
 	 */
-	private static void checkMarketFunctionality() {
+	private static void updateMarketFunctionality() {
 		boolean functionalMarket = true;
 		if(Market.turnsSinceLastBuy > 10 && Market.turnsSinceLastSell > 10)
 			if(Market.consecutiveExpiredRatBuckets < 3)
@@ -45,7 +45,7 @@ public class GlobalPredicateMap {
 	}
 
 	public static void updateDowntrendUptrend() {
-		if (Market.hasUpwardMomentum()) {
+		if (Market.hasPositiveMagnitude()) {
 			Integer numConsecutiveUptrends = map
 					.get("number of consecutive uptrends") == null ? 0
 					: ((Integer) map.get("number of consecutive uptrends") + 1);

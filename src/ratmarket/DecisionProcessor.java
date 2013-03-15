@@ -1,10 +1,10 @@
 package ratmarket;
 
 /**
- * The DecisionProcessor processes Decisions. Currently, it also clears all
- * Decision requests to make sure they are valid (eg Alice's buy won't be
- * processed if she has no money). This shouldn't be the domain of the
- * DecisionProcessor but it is a quick fix for now.
+ * The DecisionProcessor processes Decisions and updates variables throughout
+ * the program that are affected by the Decision. It also clears all Decision
+ * requests to make sure they are valid (e.g. Alice's buy won't be processed if
+ * she has no money).
  * 
  * @author jeffreymeyerson
  * 
@@ -35,7 +35,6 @@ public class DecisionProcessor {
 			Market.turnsSinceLastBuy = 0;
 			Market.turnsSinceLastSell++;
 		} else if (decision.isSell()) {
-			System.out.println("SOMEONE IS SELLINGIGINGING");
 			player.dollars += decision.ratsToSell * Market.ratPrice;
 			player.rats -= decision.ratsToSell;
 			Market.lastSellOrder = decision.ratsToSell;
@@ -48,8 +47,7 @@ public class DecisionProcessor {
 			Market.consecutiveExpiredRatBuckets = 0;
 			Market.turnsSinceLastSell++;
 			Market.turnsSinceLastBuy++;
-		}
-		else if (decision.decisionType.equals("do nothing")) {
+		} else if (decision.decisionType.equals("do nothing")) {
 			Market.turnsSinceLastSell++;
 			Market.turnsSinceLastBuy++;
 		}
