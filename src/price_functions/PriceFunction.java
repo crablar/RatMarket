@@ -21,7 +21,7 @@ public abstract class PriceFunction {
 	public ArrayList<Integer> magnitudeHistory;
 
 	public abstract int updatePrice();
-	public abstract void calculateDirectionalMagnitude();
+	public abstract void updateDirectionalMagnitude();
 	public void print() {
 		System.out.println("PriceDirectionalMagnitude = "
 				+ priceDirectionalMagnitude);

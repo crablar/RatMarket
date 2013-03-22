@@ -25,28 +25,22 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 	/**
 	 * Calculates and returns an updated price. Modifies the Market price.
 	 * 
-	 * @return
+	 * @return Market.ratPrice
 	 */
 	public int updatePrice() {
 		if (Market.priceHistoryLong.isEmpty())
 			return Market.STARTING_PRICE;
 		ArrayList<Integer> priceHistory = Utilities.trimPriceHistory(50);
-		calculateDirectionalMagnitude();
+		updateDirectionalMagnitude();
 		Market.movingAverage = Utilities.getAverage(priceHistory);
 		changePriceByMagnitude();
 		return Market.ratPrice;
 	}
 
-	private void changePriceByMagnitude() {
-		int price = Market.ratPrice;
-		int distFromAverage = Math.abs(price - Market.movingAverage);
-		distFromAverage = distFromAverage == 0 ? 1 : distFromAverage;
-		// A price far from the average is difficult to push further
-		int scaledMagnitude = priceDirectionalMagnitude / distFromAverage;
-		Market.ratPrice += scaledMagnitude;
-	}
-
-	public void calculateDirectionalMagnitude() {
+	/**
+	 * Updates the priceDirectionalMagnitude
+	 */
+	public void updateDirectionalMagnitude() {
 		positiveMagnitude = Market.turnsSinceLastSell * Market.lastBuyOrder;
 		negativeMagnitude = Market.turnsSinceLastBuy * Market.lastSellOrder;
 		priceDirectionalMagnitude += positiveMagnitude - negativeMagnitude;
@@ -55,6 +49,19 @@ public class DemandDrivenPriceFunction extends PriceFunction {
 		// If price has no momentum, create momentum of rand{-2..2}
 		while (priceDirectionalMagnitude == 0)
 			priceDirectionalMagnitude = Utilities.rand.nextInt(5) - 2;
+	}
+
+	/**
+	 * Change Market.ratPrice using scaledMagnitude
+	 */
+	private void changePriceByMagnitude() {
+		int price = Market.ratPrice;
+		int distFromAverage = Math.abs(price - Market.movingAverage);
+		distFromAverage = distFromAverage == 0 ? 1 : distFromAverage;
+		// A price far from the average is difficult to push further
+		int scaledMagnitude = priceDirectionalMagnitude / distFromAverage;
+		Market.ratPrice += scaledMagnitude * Market.ratPrice
+				/ Market.movingAverage;
 	}
 
 }
