@@ -1,4 +1,3 @@
-
 Rules for RatMarket
 
 The future is an apocalyptic wasteland.  The main source of meat humans find to consume is that of rats.  Your goal is to play the market and buy and sell rats. You and your opponent compete by buying and selling rat holdings.  Every turn there will be market prices to buy and sell rats, as well as a "rat bucket" that players bid on.  The rat bucket is initialized as a number between 1 and 10.  A rat is added to it after every turn.
@@ -14,7 +13,6 @@ Alice and Bob flip a coin.  Alice wins, and will take the first turn.
 ----------------------------
 Alice has $200 and 0 rats.
 Bob has $200 and 0 rats.
-ииииииииииииииииииииииииииии
 The market price of a rat is $2.
 There is no market history.
 The rat bucket has been in play for 0 turns.
@@ -30,7 +28,6 @@ done
 ----------------------------
 Alice has $192 and 4 rats.
 Bob has $200 and 0 rats.
-ииииииииииииииииииииииииииии
 The market price of a rat is $2.
 There is no market history.
 The rat bucket has been in play for 0 turns.
@@ -52,7 +49,6 @@ A RAT IS ADDED TO THE RAT BUCKET
 ----------------------------
 Alice has $192 and 2 rats.
 Bob has $180 and 10 rats.
-ииииииииииииииииииииииииииии
 The market price of a rat is $5.
 Market History: $2 ^ $5
 The rat bucket has been in play for 1 turns.
@@ -84,4 +80,4 @@ Buy 10
 A RAT IS ADDED TO THE RAT BUCKET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-etc.  Continue until someone has $1000.
+<etc.  Continue until someone has $1000.>
